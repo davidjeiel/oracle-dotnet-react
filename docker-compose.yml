@@ -1,0 +1,49 @@
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle-db
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      ORACLE_PASSWORD: "mysecurepassword"
+      ORACLE_CHARACTERSET: "AL32UTF8"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+    restart: always
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dotnet-backend
+    ports:
+      - "5001:5001"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: "User Id=system;Password=mysecurepassword;Data Source=oracle-db:1521/XEPDB1"
+    depends_on:
+      - oracle-db
+    volumes:
+      - ./backend:/app
+    restart: always
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: react-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      REACT_APP_API_URL: "http://localhost:5000"
+    restart: always
+
+volumes:
+  oracle_data:
