@@ -31,3 +31,4 @@ C:\Codigos\oracle-dotnet-react\backend\obj\Debug\net8.0\refint\teste.dll
 C:\Codigos\oracle-dotnet-react\backend\obj\Debug\net8.0\teste.pdb
 C:\Codigos\oracle-dotnet-react\backend\obj\Debug\net8.0\teste.genruntimeconfig.cache
 C:\Codigos\oracle-dotnet-react\backend\obj\Debug\net8.0\ref\teste.dll
+C:\Codigos\oracle-dotnet-react\backend\obj\Debug\net8.0\teste.sourcelink.json
